@@ -1,6 +1,7 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { mockBoardList } from "../Mock/MockList";
 import type { KanbanBoard, KanbanBoardList } from "../Types/ListTypes";
+import type { RootState } from "./store";
 
 interface BoardState{
     boardList : KanbanBoardList,
@@ -37,3 +38,9 @@ const boardSlice = createSlice({
 });
 export const { addBoard, removeBoard, updateBoard } = boardSlice.actions;
 export const boardReducer = boardSlice.reducer;
+
+export const selectAllBoards = (state: RootState) => 
+    state.boards.boardList.lists;
+
+export const selectBoardByTitle = (state: RootState, title: string) => 
+    state.boards.boardList.lists.find(board => board.title === title);
