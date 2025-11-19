@@ -4,11 +4,11 @@ function Navbar() {
     return(
         <div className="navbar bg-base-100 shadow-sm">
         <div className="flex-1">
-            <Link to="/"><a className="btn btn-ghost text-xl">JustCheck IT</a></Link>
+            <Link to="/"><span className="btn btn-ghost text-xl">JustCheck IT</span></Link>
         </div>
         <div className="flex-none">
             <ul className="menu menu-horizontal px-1">
-            <li><Link to="/my-lists"><a>My All</a></Link></li>
+            <li><Link to="/my-lists">My All</Link></li>
             <li>
                 <details>
                 <summary>Parent</summary>

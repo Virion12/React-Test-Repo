@@ -10,7 +10,7 @@ function KanbanList(){
         return <h1>There is no List with this name</h1>;
     }
 
-    return(<div className="flex gap-15 p-4">
+    return(<div className="flex p-4">
           {board.lists.map((kanbanListColumn) => (
             <KanbanListColumn key={kanbanListColumn.id} column={kanbanListColumn}></KanbanListColumn>
           ))}

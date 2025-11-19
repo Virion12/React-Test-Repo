@@ -13,12 +13,12 @@ function KanbanListColumn({column} : kanbanListColumnProps){
     const [tasks, setTasks] = useState<Task[]>(column.tasks);
 
     return (
-        <div className="flex flex-col  p-4 items-start w-40 m-10 bg-base-100 shadow-2xl min-w-50 min-h-100 rounded-2xl">
+        <div className="flex flex-col p-4 items-start w-40 m-10 bg-base-100 shadow-2xl min-w-70 min-h-100 rounded-2xl">
 
-  <div className="flex justify-between w-full">
-    <span className="ml-1 mb-2 text-2xl">{column.title}</span>
-    <span className="mr-1 mb-2 text-2xl">...</span>
-  </div>
+      <div className="flex justify-between w-full">
+        <span className="ml-1 mb-2 text-2xl">{column.title}</span>
+        <span className="mr-1 mb-2 text-2xl">...</span>
+      </div>
 
   {tasks.map((task) => (
     <KanbanListElement key={task.id} element={task} />
