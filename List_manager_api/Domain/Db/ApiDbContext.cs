@@ -14,6 +14,7 @@ namespace List_manager_api.Domain.Db
         public DbSet<Board> Boards { get; set; }
         public DbSet<BoardShare> BoardShares { get; set; }
         public DbSet<ListColumn> ListColumns { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -44,7 +45,7 @@ namespace List_manager_api.Domain.Db
                     .HasForeignKey(bs => bs.BoardId)
                     .OnDelete(DeleteBehavior.Cascade);
 
-                // Relacja do User - NO ACTION (unikamy cyklicznych kaskad)
+                // Relacja do User 
                 entity.HasOne(bs => bs.User)
                     .WithMany(u => u.SharedBoards)
                     .HasForeignKey(bs => bs.UserId)
