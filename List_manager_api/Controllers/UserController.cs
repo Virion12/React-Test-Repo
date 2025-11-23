@@ -1,5 +1,6 @@
 using List_manager_api.Domain.Db;
-using Microsoft.AspNetCore.Identity.Data;
+using List_manager_api.Domain.Dto.Auth;
+using List_manager_api.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,23 +14,31 @@ namespace List_manager_api.Controllers
 
         private readonly ILogger<UserController> _logger;
         private readonly ApiDbContext _db;
+        private readonly ITokenService _tokenService;
 
-        public UserController(ILogger<UserController> logger, ApiDbContext db)
+        public UserController(ILogger<UserController> logger, ApiDbContext db, ITokenService tokenService)
         {
             _logger = logger;
             _db = db;
+            _tokenService = tokenService;
         }
 
-        [HttpGet("login")]
+        [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest loginDetails)
         {
             User? user = await _db.Users.FirstOrDefaultAsync(u => u.Email == loginDetails.Email);
-            if(user == null)
+            if (user == null || !BCrypt.Net.BCrypt.Verify(loginDetails.Password, user.PasswordHashed))
             {
                 return Unauthorized("Invlaid credentials");
             }
-           
-           return Ok();
+
+            var newToken = _tokenService.GenerateToken(user);
+            var refreshTokenRaw = await _tokenService.GenerateRefreshToken(user);
+
+
+
+
+            return Ok(new { userId = user.Id, refreshToken = refreshTokenRaw, accessToken = newToken });
         }
     }
 }

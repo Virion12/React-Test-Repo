@@ -43,7 +43,6 @@ namespace List_manager_api.Services
                     Token = BCrypt.Net.BCrypt.HashPassword(rawRefreshToken),
                     ExpiresOnUtc = DateTime.UtcNow.AddDays(30),
                 };
-                //_db.Add(refreshToken)
                 _db.RefreshTokens.Add(refreshToken);
 
 
